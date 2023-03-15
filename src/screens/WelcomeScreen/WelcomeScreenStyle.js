@@ -7,23 +7,26 @@ const WelcomeScreenStyle = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: "center",
-    padding: 30,
+    padding: 20,
   },
-  welcomeText: {
+  quizgame: {
     fontSize: 60,
-    fontFamily: "Welcome",
+    fontFamily: "Main",
+    padding: 5,
   },
 
   text: {
-    fontSize: 30,
+    fontSize: 25,
     marginHorizontal: 30,
     textAlign: "center",
     color: "#497ee8",
     fontWeight: "400",
-    marginTop: 30,
+    marginTop: 40,
+    fontFamily: "Main",
   },
   inputView: {
     backgroundColor: "#fbfbfb",
+    borderWidth: 1,
     borderRadius: 10,
     width: "100%",
     height: 56,
@@ -35,6 +38,7 @@ const WelcomeScreenStyle = StyleSheet.create({
   input: {
     fontSize: 25,
     fontWeight: "300",
+    fontFamily: "Main",
   },
 });
 

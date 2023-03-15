@@ -7,7 +7,7 @@ import AuthContextProvider from "./src/store/auth-context";
 export default function App() {
   const [fontsLoaded] = useFonts({
     Texts: require("./src/assets/fonts/MPLUS1p-Medium.ttf"),
-    Welcome: require("./src/assets/fonts/BonaNova-Regular.ttf"),
+    Main: require("./src/assets/fonts/BonaNova-Regular.ttf"),
   });
   if (!fontsLoaded) {
     return <LoadingOverlay />;

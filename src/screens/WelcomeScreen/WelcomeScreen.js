@@ -14,10 +14,6 @@ function WelcomeScreen({ navigation }) {
   const authCtx = useContext(AuthContext);
   const [isFetchingToken, setIsFetchingToken] = useState(false);
 
-  function textHandler(value) {
-    setName(value);
-  }
-
   async function submitHandler() {
     setIsFetchingToken(true);
     try {
@@ -29,8 +25,6 @@ function WelcomeScreen({ navigation }) {
       Alert.alert("Could not proceed, please try again later");
       setIsFetchingToken(false);
     }
-
-    // navigation.navigate("Choosing", { nickname: nickname });
   }
   if (isFetchingToken) {
     return <LoadingOverlay />;
@@ -41,26 +35,25 @@ function WelcomeScreen({ navigation }) {
       <View style={styles.screen}>
         <GradientText
           gradientColors={["#C5bd23", "#1453a0"]}
-          textStyle={styles.welcomeText}
+          textStyle={styles.quizgame}
         >
-          Welcome
+          Quiz Game
         </GradientText>
 
-        <Text style={styles.text}>Please Enter Your Nickname </Text>
+        <Text style={styles.text}>Please Enter Your Name To Start </Text>
 
         <View style={styles.inputView}>
           <TextInput
             style={styles.input}
             placeholder="Nickname . . ."
             keyboardType="default"
-            onChangeText={textHandler}
+            onChangeText={(value) => setName(value)}
             value={name}
           />
         </View>
 
         <CustomButton
           text="Submit"
-          style={styles.button}
           onPress={submitHandler}
           disabled={name.length === 0 && true}
         />
