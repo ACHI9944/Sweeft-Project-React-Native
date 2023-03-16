@@ -26,7 +26,7 @@ const WelcomeScreenStyle = StyleSheet.create({
   },
   inputView: {
     backgroundColor: "#fbfbfb",
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 10,
     width: "100%",
     height: 56,

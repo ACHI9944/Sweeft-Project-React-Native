@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ChoosingScreen from "../screens/ChoosingScreen/ChoosingScreen";
+import ChoosingScreen from "../screens/ChoosingScreen";
+import StartingScreen from "../screens/StartingScreen";
 
 const Stack = createNativeStackNavigator();
 function GameStack() {
@@ -8,6 +9,13 @@ function GameStack() {
       <Stack.Screen
         name="Choosing"
         component={ChoosingScreen}
+        options={({}) => ({
+          headerShown: false,
+        })}
+      />
+      <Stack.Screen
+        name="starting"
+        component={StartingScreen}
         options={({}) => ({
           headerShown: false,
         })}

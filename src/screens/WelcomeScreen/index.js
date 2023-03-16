@@ -4,8 +4,9 @@ import CustomButton from "../../components/ui/CustomButton";
 import GradientText from "../../components/ui/GradientText";
 import LoadingOverlay from "../../components/ui/LoadingOverlay";
 import { AuthContext } from "../../store/auth-context";
-import { getToken } from "../../util/fetchToken";
-import WelcomeScreenStyle from "./WelcomeScreenStyle";
+import { getToken } from "../../util/fetch";
+
+import WelcomeScreenStyle from "./style";
 
 const styles = WelcomeScreenStyle;
 

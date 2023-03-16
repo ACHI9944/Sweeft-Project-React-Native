@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+const device = Dimensions.get("window");
 
 const ChoosingScreenStyle = StyleSheet.create({
   screen: {
@@ -6,11 +7,14 @@ const ChoosingScreenStyle = StyleSheet.create({
     backgroundColor: "white",
     flex: 1,
     padding: 30,
+    justifyContent: "space-between",
+  },
+  form: {
+    width: "100%",
   },
   welocomeView: {
     alignItems: "center",
     borderBottomWidth: 1,
-    width: "100%",
     paddingVertical: 10,
   },
   welcomeText: {
@@ -23,7 +27,6 @@ const ChoosingScreenStyle = StyleSheet.create({
   },
   rulesView: {
     alignItems: "center",
-    width: "100%",
     borderBottomWidth: 1,
     paddingVertical: 10,
   },
@@ -33,9 +36,7 @@ const ChoosingScreenStyle = StyleSheet.create({
     fontFamily: "Main",
     color: "#497ee8",
   },
-  selections: {
-    width: "100%",
-  },
+
   numberDescription: {
     fontWeight: "300",
     fontSize: 15,
@@ -78,8 +79,20 @@ const ChoosingScreenStyle = StyleSheet.create({
     justifyContent: "center",
   },
   selectText: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "300",
+    fontFamily: "Main",
+  },
+  clearButton: {
+    marginTop: 15,
+  },
+  buttons: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  button: {
+    width: "45%",
   },
 });
 

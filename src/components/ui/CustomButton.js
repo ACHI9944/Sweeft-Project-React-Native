@@ -1,11 +1,15 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 
-function CustomButton({ text, onPress, disabled }) {
+function CustomButton({ text, onPress, disabled, style }) {
   return (
     <Pressable
       disabled={disabled}
       onPress={onPress}
-      style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+      style={({ pressed }) => [
+        styles.button,
+        pressed && styles.pressed,
+        !!style && style,
+      ]}
     >
       <Text style={styles.text}>{text}</Text>
     </Pressable>

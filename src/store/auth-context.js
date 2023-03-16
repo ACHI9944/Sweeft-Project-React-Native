@@ -13,6 +13,7 @@ export const AuthContext = createContext({
 function AuthContextProvider({ children }) {
   const [name, setName] = useState();
   const [token, setToken] = useState();
+  console.log(token)
 
   async function setNameAndToken(token, name) {
     setToken(token);
