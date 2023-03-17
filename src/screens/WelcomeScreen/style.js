@@ -38,7 +38,7 @@ const WelcomeScreenStyle = StyleSheet.create({
   input: {
     fontSize: 25,
     fontWeight: "300",
-    fontFamily: "Main",
+    fontFamily: "Helper",
   },
 });
 

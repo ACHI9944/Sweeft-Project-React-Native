@@ -1,8 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { useContext } from "react";
 import { Modal, Platform, Pressable, Text, View } from "react-native";
-import { AuthContext } from "../../store/auth-context";
-import { refreshToken } from "../../util/fetch";
 import CustomButton from "../ui/CustomButton";
 import ErrorModalStyle from "./style";
 

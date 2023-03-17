@@ -13,29 +13,25 @@ import ConfirmModal from "../../components/ConfirmModal";
 const styles = ChoosingScreenStyle;
 /* Simple validation for number input */
 function isValidNum(value) {
-  if (value > 0 && value < 51) {
-    return true;
-  } else return false;
+  return value > 0 && value < 51;
 }
 
 function ChoosingScreen({ navigation }) {
-  const authCtx = useContext(AuthContext);
-  const name = authCtx.name;
-
   const [number, setNumber] = useState();
   const [isTouched, setIsTouched] = useState(false);
+  const [category, setCategory] = useState("Any Category");
+  const [difficulty, setDifficulty] = useState("Any Difficulty");
+  const [type, setType] = useState("Any Type");
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const authCtx = useContext(AuthContext);
+  const { name } = authCtx;
 
   /* refs and states for custom select buttons with Modalize */
 
   const modalizeRefCategory = useRef(null);
   const modalizeRefDifficulty = useRef(null);
   const modalizeRefType = useRef(null);
-
-  const [category, setCategory] = useState("Any Category");
-  const [difficulty, setDifficulty] = useState("Any Difficulty");
-  const [type, setType] = useState("Any Type");
-
-  const [modalVisible, setModalVisible] = useState(false);
 
   function clearHandler() {
     setNumber("10");
@@ -45,10 +41,10 @@ function ChoosingScreen({ navigation }) {
   }
   function nextHandler() {
     navigation.navigate("starting", {
-      number: number,
-      category: category,
-      difficulty: difficulty,
-      type: type,
+      number,
+      category,
+      difficulty,
+      type,
     });
   }
 

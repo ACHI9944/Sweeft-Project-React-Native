@@ -1,6 +1,6 @@
 const DummyHeaders = {
   categories: [
-    { name: "Any Category", value: 8 },
+    { name: "Any Category", value: "any" },
     { name: "General Knowledge", value: 9 },
     { name: "Entertainment: Books", value: 10 },
     { name: "Entertainment: Film", value: 11 },

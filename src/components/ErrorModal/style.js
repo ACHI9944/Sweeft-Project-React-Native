@@ -29,9 +29,9 @@ const ErrorModalStyle = StyleSheet.create({
     padding: 10,
     justifyContent: "space-between",
   },
-  modalTexts: {
+  /* modalTexts: {
     alignItems: "stretch",
-  },
+  }, */
   bigText: {
     fontSize: 30,
     fontFamily: "Main",
@@ -40,7 +40,7 @@ const ErrorModalStyle = StyleSheet.create({
   },
   smallText: {
     marginBottom: 10,
-    textAlign: "stretch",
+    /* textAlign: "stretch", */
     fontSize: 18,
     fontFamily: "Main",
   },

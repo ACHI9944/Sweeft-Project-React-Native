@@ -5,7 +5,7 @@ export function categoryDetector(value) {
     (item) => item.name === value
   );
   const itemValue = chosenCategory.value;
-  if (itemValue === 8) {
+  if (itemValue === "any") {
     return "";
   } else return `&category=${itemValue}`;
 }

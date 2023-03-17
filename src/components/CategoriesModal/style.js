@@ -32,7 +32,7 @@ const CategoriesModalStyle = StyleSheet.create({
   },
   categoryText: {
     fontSize: 20,
-    fontFamily: "Main",
+    fontFamily: "Helper",
   },
 });
 

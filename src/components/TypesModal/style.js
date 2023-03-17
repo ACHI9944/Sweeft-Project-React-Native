@@ -33,7 +33,7 @@ const TypesModalStyle = StyleSheet.create({
   },
   typeText: {
     fontSize: 20,
-    fontFamily: "Main",
+    fontFamily: "Helper",
   },
 });
 

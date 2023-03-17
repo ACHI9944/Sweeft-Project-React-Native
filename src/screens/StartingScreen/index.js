@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { Alert, Image, View } from "react-native";
 import ErrorModal from "../../components/ErrorModal";
+import SingleQuestion from "../../components/SingleQuestion";
 import CustomButton from "../../components/ui/CustomButton";
 import GradientText from "../../components/ui/GradientText";
 import LoadingOverlay from "../../components/ui/LoadingOverlay";
@@ -24,7 +25,7 @@ function StartingScreen({ route, navigation }) {
     authCtx.token
   }`;
 
-  const [fetchedQuestions, setFetchedQuestions] = useState();
+  const [fetchedQuestions, setFetchedQuestions] = useState("");
   const [isFetchingToken, setIsFetchingToken] = useState(false);
   const [errorModalVisible, setErrorModalVisible] = useState(false);
 
@@ -34,21 +35,22 @@ function StartingScreen({ route, navigation }) {
       const response = await getQuestions(url);
       const data = await response.data;
       setIsFetchingToken(false);
-      console.log(data.response_code);
       if (data.response_code === 0) {
         setFetchedQuestions(data.results);
+      } else if (data.response_code === 3) {
+        authCtx.clearNameAndToken();
+        Alert.alert(
+          "Your session has timed out, please re-enter your name to start again"
+        );
       } else setErrorModalVisible(true);
     } catch (error) {
       Alert.alert("Could not proceed, please try again later");
       setIsFetchingToken(false);
     }
   }
-  if (isFetchingToken) {
-    return <LoadingOverlay />;
-  }
+
   async function refreshHandler() {
     setIsFetchingToken(true);
-
     try {
       await refreshToken(authCtx.token);
       navigation.goBack();
@@ -60,34 +62,46 @@ function StartingScreen({ route, navigation }) {
     }
   }
 
+  if (isFetchingToken) {
+    return <LoadingOverlay />;
+  }
+
   return (
     <>
-      <View style={styles.screen}>
-        <GradientText
-          gradientColors={["#C5bd23", "#1453a0"]}
-          textStyle={styles.readyText}
-        >
-          Ready?
-        </GradientText>
-        <Image
-          style={styles.image}
-          source={require("../../assets/flat-people-asking-questions-illustration_23-2148901520.avif")}
+      {!!fetchedQuestions && (
+        <SingleQuestion
+          setFetchedQuestions={setFetchedQuestions}
+          fetchedQuestions={fetchedQuestions}
         />
+      )}
+      {!fetchedQuestions && (
+        <View style={styles.screen}>
+          <GradientText
+            gradientColors={["#C5bd23", "#1453a0"]}
+            textStyle={styles.readyText}
+          >
+            Ready?
+          </GradientText>
+          <Image
+            style={styles.image}
+            source={require("../../assets/flat-people-asking-questions-illustration_23-2148901520.avif")}
+          />
 
-        <View style={styles.buttons}>
-          <View style={styles.button}>
-            <CustomButton onPress={() => navigation.goBack()} text="Back" />
+          <View style={styles.buttons}>
+            <View style={styles.button}>
+              <CustomButton onPress={() => navigation.goBack()} text="Back" />
+            </View>
+            <View style={styles.button}>
+              <CustomButton text="Start" onPress={startHandler} />
+            </View>
           </View>
-          <View style={styles.button}>
-            <CustomButton text="Start" onPress={startHandler} />
-          </View>
+          <ErrorModal
+            errorModalVisible={errorModalVisible}
+            setErrorModalVisible={setErrorModalVisible}
+            refreshHandler={refreshHandler}
+          />
         </View>
-      </View>
-      <ErrorModal
-        errorModalVisible={errorModalVisible}
-        setErrorModalVisible={setErrorModalVisible}
-        refreshHandler={refreshHandler}
-      />
+      )}
     </>
   );
 }

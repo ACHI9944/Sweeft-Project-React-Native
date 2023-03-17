@@ -33,7 +33,7 @@ const DifficultiesModalStyle = StyleSheet.create({
   },
   difficultyText: {
     fontSize: 20,
-    fontFamily: "Main",
+    fontFamily: "Helper",
   },
 });
 

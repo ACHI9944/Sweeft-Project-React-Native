@@ -63,6 +63,7 @@ const ChoosingScreenStyle = StyleSheet.create({
   numberInput: {
     fontSize: 22,
     fontWeight: "300",
+    fontFamily: "Helper",
   },
   selectDescription: {
     fontWeight: "300",
@@ -81,7 +82,7 @@ const ChoosingScreenStyle = StyleSheet.create({
   selectText: {
     fontSize: 20,
     fontWeight: "300",
-    fontFamily: "Main",
+    fontFamily: "Helper",
   },
   clearButton: {
     marginTop: 15,
