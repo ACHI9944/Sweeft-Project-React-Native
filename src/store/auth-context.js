@@ -4,7 +4,6 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext({
   name: "",
   token: "",
-  tokenIsReady: false,
   setNameAndToken: (token, name) => {},
   clearNameAndToken: () => {},
   setStoredNameAndToken: (storedToken, storedName) => {},
@@ -34,7 +33,6 @@ function AuthContextProvider({ children }) {
   const value = {
     name: name,
     token: token,
-    tokenIsReady: token && name,
     setNameAndToken: setNameAndToken,
     clearNameAndToken: clearNameAndToken,
     setStoredNameAndToken: setStoredNameAndToken,

@@ -18,6 +18,16 @@ const styles = StartingScreenStyle;
 function StartingScreen({ route, navigation }) {
   const authCtx = useContext(AuthContext);
   const { number, category, difficulty, type } = route.params;
+  /* `https://opentdb.com/api.php?amount=${amount}&category=$
+  {categories[category]}&difficulty=${difficulties[difficulty]}&type=${types[type]}`
+  export const categories = {
+  "Any Category": 8,
+  "Sports": 21
+  }
+  export const difficulties = { .. }
+  export const types = { .. }
+  Object.keys(categories).map()
+  */
 
   const url = `https://opentdb.com/api.php?amount=${number}${categoryDetector(
     category
@@ -25,7 +35,7 @@ function StartingScreen({ route, navigation }) {
     authCtx.token
   }`;
 
-  const [fetchedQuestions, setFetchedQuestions] = useState("");
+  const [fetchedQuestions, setFetchedQuestions] = useState([]);
   const [isFetchingToken, setIsFetchingToken] = useState(false);
   const [errorModalVisible, setErrorModalVisible] = useState(false);
 
@@ -33,11 +43,10 @@ function StartingScreen({ route, navigation }) {
     setIsFetchingToken(true);
     try {
       const response = await getQuestions(url);
-      const data = await response.data;
       setIsFetchingToken(false);
-      if (data.response_code === 0) {
-        setFetchedQuestions(data.results);
-      } else if (data.response_code === 3) {
+      if (response.data.response_code === 0) {
+        setFetchedQuestions(response.data.results);
+      } else if (response.data.response_code === 3) {
         authCtx.clearNameAndToken();
         Alert.alert(
           "Your session has timed out, please re-enter your name to start again"
@@ -68,13 +77,12 @@ function StartingScreen({ route, navigation }) {
 
   return (
     <>
-      {!!fetchedQuestions && (
+      {fetchedQuestions.length > 0 ? (
         <SingleQuestion
           setFetchedQuestions={setFetchedQuestions}
           fetchedQuestions={fetchedQuestions}
         />
-      )}
-      {!fetchedQuestions && (
+      ) : (
         <View style={styles.screen}>
           <GradientText
             gradientColors={["#C5bd23", "#1453a0"]}

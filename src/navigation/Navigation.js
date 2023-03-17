@@ -25,7 +25,7 @@ function Navigation() {
   if (isTryingFetch) {
     return <LoadingOverlay />;
   }
-  return <>{authCtx.tokenIsReady ? <GameStack /> : <WelcomeScreen />}</>;
+  return <>{!!authCtx.token ? <GameStack /> : <WelcomeScreen />}</>;
 }
 
 export default Navigation;
