@@ -1,13 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useContext, useEffect, useState } from "react";
 import LoadingOverlay from "../components/ui/LoadingOverlay";
 import WelcomeScreen from "../screens/WelcomeScreen";
-
 import { AuthContext } from "../store/auth-context";
 import GameStack from "./GameStack";
-
-const Stack = createNativeStackNavigator();
 
 function Navigation() {
   const [isTryingFetch, setIsTryingFetch] = useState(true);
@@ -29,12 +25,7 @@ function Navigation() {
   if (isTryingFetch) {
     return <LoadingOverlay />;
   }
-  return (
-    <>
-      {!authCtx.tokenIsReady && <WelcomeScreen />}
-      {authCtx.tokenIsReady && <GameStack />}
-    </>
-  );
+  return <>{authCtx.tokenIsReady ? <GameStack /> : <WelcomeScreen />}</>;
 }
 
 export default Navigation;

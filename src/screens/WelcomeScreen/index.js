@@ -10,7 +10,7 @@ import WelcomeScreenStyle from "./style";
 
 const styles = WelcomeScreenStyle;
 
-function WelcomeScreen({ navigation }) {
+function WelcomeScreen() {
   const [name, setName] = useState("");
   const authCtx = useContext(AuthContext);
   const [isFetchingToken, setIsFetchingToken] = useState(false);
@@ -19,11 +19,11 @@ function WelcomeScreen({ navigation }) {
     setIsFetchingToken(true);
     try {
       const requestedData = await getToken();
-      setIsFetchingToken(false);
-      const token = requestedData.data.token;
+      const { token } = requestedData.data;
       authCtx.setNameAndToken(token, name);
     } catch (error) {
       Alert.alert("Could not proceed, please try again later");
+    } finally {
       setIsFetchingToken(false);
     }
   }
@@ -40,19 +40,15 @@ function WelcomeScreen({ navigation }) {
         >
           Quiz Game
         </GradientText>
-
         <Text style={styles.text}>Please Enter Your Name To Start </Text>
-
         <View style={styles.inputView}>
           <TextInput
             style={styles.input}
             placeholder="Nickname . . ."
-            keyboardType="default"
             onChangeText={(value) => setName(value)}
             value={name}
           />
         </View>
-
         <CustomButton
           text="Submit"
           onPress={submitHandler}
