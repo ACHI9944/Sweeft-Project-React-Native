@@ -2,13 +2,14 @@ import { useContext, useRef, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
 import { Modalize } from "react-native-modalize";
 import GradientText from "../../components/ui/GradientText";
-import { AuthContext } from "../../store/auth-context";
+import { AuthContext } from "../../store/context";
 import CategoriesModal from "../../components/CategoriesModal";
 import ChoosingScreenStyle from "./style";
 import DifficultiesModal from "../../components/DifficultiesModal";
 import TypesModal from "../../components/TypesModal";
 import CustomButton from "../../components/ui/CustomButton";
 import ConfirmModal from "../../components/ConfirmModal";
+import Colors from "../../assets/colors/colors";
 
 const styles = ChoosingScreenStyle;
 /* Simple validation for number input */
@@ -17,7 +18,7 @@ function isValidNum(value) {
 }
 
 function ChoosingScreen({ navigation }) {
-  const [number, setNumber] = useState();
+  const [amount, setAmount] = useState();
   const [isTouched, setIsTouched] = useState(false);
   const [category, setCategory] = useState("Any Category");
   const [difficulty, setDifficulty] = useState("Any Difficulty");
@@ -34,18 +35,28 @@ function ChoosingScreen({ navigation }) {
   const modalizeRefType = useRef(null);
 
   function clearHandler() {
-    setNumber("10");
+    setAmount("10");
     setCategory("Any Category");
     setDifficulty("Any Difficulty");
     setType("Any Type");
   }
   function nextHandler() {
     navigation.navigate("starting", {
-      number,
+      amount,
       category,
       difficulty,
       type,
     });
+  }
+  //function for opening and closing modalize
+  function refHandler(ref, action) {
+    if (action === "open") {
+      ref.current?.open();
+    } else ref.current?.close();
+  }
+
+  function modalHandler() {
+    setModalVisible(!modalVisible);
   }
 
   return (
@@ -54,7 +65,7 @@ function ChoosingScreen({ navigation }) {
         <View style={styles.form}>
           <View style={styles.welocomeView}>
             <GradientText
-              gradientColors={["#C5bd23", "#1453a0"]}
+              gradientColors={[Colors.gradient100, Colors.gradient200]}
               textStyle={styles.welcomeText}
             >
               Welcome
@@ -63,11 +74,11 @@ function ChoosingScreen({ navigation }) {
           </View>
           <View style={styles.rulesView}>
             <Text style={styles.rules}>
-              You Can Choose Number, Category, Difficulty And Type Of Questions
+              You Can Choose Amount, Category, Difficulty And Type Of Questions
             </Text>
           </View>
 
-          {/* Number Input and custom select buttons with Modalize  */}
+          {/* Amount Input and custom select buttons with Modalize  */}
 
           <Text style={styles.numberDescription}>
             Number of Questions 1 - 50:
@@ -75,23 +86,23 @@ function ChoosingScreen({ navigation }) {
           <View
             style={[
               styles.numberView,
-              !isValidNum(number) && isTouched && styles.invalidNumberView,
-              isValidNum(number) && isTouched && styles.correctNumberView,
+              !isValidNum(amount) && isTouched && styles.invalidNumberView,
+              isValidNum(amount) && isTouched && styles.correctNumberView,
             ]}
           >
             <TextInput
               style={styles.numberInput}
               keyboardType="numbers-and-punctuation"
               placeholder="Number of Questions 1 - 50"
-              onChangeText={(value) => setNumber(value)}
-              value={number}
+              onChangeText={(value) => setAmount(value)}
+              value={amount}
               onBlur={() => setIsTouched(true)}
             />
           </View>
 
           <Text style={styles.selectDescription}>Select Category:</Text>
           <Pressable
-            onPress={() => modalizeRefCategory.current?.open()}
+            onPress={refHandler.bind(this, modalizeRefCategory, "open")}
             style={styles.select}
           >
             <Text style={styles.selectText}>{category}</Text>
@@ -99,7 +110,7 @@ function ChoosingScreen({ navigation }) {
 
           <Text style={styles.selectDescription}>Select Difficulty:</Text>
           <Pressable
-            onPress={() => modalizeRefDifficulty.current?.open()}
+            onPress={refHandler.bind(this, modalizeRefDifficulty, "open")}
             style={styles.select}
           >
             <Text style={styles.selectText}>{difficulty}</Text>
@@ -107,7 +118,7 @@ function ChoosingScreen({ navigation }) {
 
           <Text style={styles.selectDescription}>Select Type:</Text>
           <Pressable
-            onPress={() => modalizeRefType.current?.open()}
+            onPress={refHandler.bind(this, modalizeRefType, "open")}
             style={styles.select}
           >
             <Text style={styles.selectText}>{type}</Text>
@@ -121,15 +132,12 @@ function ChoosingScreen({ navigation }) {
 
         <View style={styles.buttons}>
           <View style={styles.button}>
-            <CustomButton
-              onPress={() => setModalVisible(!modalVisible)}
-              text="Reset"
-            />
+            <CustomButton onPress={modalHandler} text="Reset" />
           </View>
           <View style={styles.button}>
             <CustomButton
               text="Next"
-              disabled={!isValidNum(number)}
+              disabled={!isValidNum(amount)}
               onPress={nextHandler}
             />
           </View>
@@ -147,7 +155,7 @@ function ChoosingScreen({ navigation }) {
         <CategoriesModal
           setCategory={setCategory}
           selectedCategory={category}
-          onCancel={() => modalizeRefCategory.current?.close()}
+          onCancel={refHandler.bind(this, modalizeRefCategory, "close")}
         />
       </Modalize>
 
@@ -155,7 +163,7 @@ function ChoosingScreen({ navigation }) {
         <DifficultiesModal
           setDifficulty={setDifficulty}
           selectedDifficulty={difficulty}
-          onCancel={() => modalizeRefDifficulty.current?.close()}
+          onCancel={refHandler.bind(this, modalizeRefDifficulty, "close")}
         />
       </Modalize>
 
@@ -163,7 +171,7 @@ function ChoosingScreen({ navigation }) {
         <TypesModal
           setType={setType}
           selectedType={type}
-          onCancel={() => modalizeRefType.current?.close()}
+          onCancel={refHandler.bind(this, modalizeRefType, "close")}
         />
       </Modalize>
     </>

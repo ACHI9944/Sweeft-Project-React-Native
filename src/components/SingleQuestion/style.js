@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import Colors from "../../assets/colors/colors";
 
 const SingleQuestionStyle = StyleSheet.create({
   screen: {
@@ -19,7 +20,7 @@ const SingleQuestionStyle = StyleSheet.create({
   questionView: {
     width: "100%",
     padding: 5,
-    backgroundColor: "#f3f3f3",
+    backgroundColor: Colors.primary100,
     alignItems: "center",
     borderRadius: 10,
   },

@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
+import Colors from "../../assets/colors/colors";
 const deviceHeight = Dimensions.get("window").height;
 
 const TypesModalStyle = StyleSheet.create({
@@ -24,12 +25,12 @@ const TypesModalStyle = StyleSheet.create({
     paddingHorizontal: 10,
     width: "90%",
     borderRadius: 10,
-    backgroundColor: "#f3f3f3",
+    backgroundColor: Colors.primary100,
     justifyContent: "center",
   },
   selectedType: {
     borderWidth: 2,
-    backgroundColor: "#dbdbdb",
+    backgroundColor: Colors.primary200,
   },
   typeText: {
     fontSize: 20,

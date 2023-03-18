@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
+import Colors from "../../assets/colors/colors";
 const deviceHeight = Dimensions.get("window").height;
 
 const CategoriesModalStyle = StyleSheet.create({
@@ -23,12 +24,12 @@ const CategoriesModalStyle = StyleSheet.create({
     paddingHorizontal: 10,
     width: "90%",
     borderRadius: 10,
-    backgroundColor: "#f3f3f3",
+    backgroundColor: Colors.primary100,
     justifyContent: "center",
   },
   selectedCategory: {
     borderWidth: 2,
-    backgroundColor: "#dbdbdb",
+    backgroundColor: Colors.primary200,
   },
   categoryText: {
     fontSize: 20,

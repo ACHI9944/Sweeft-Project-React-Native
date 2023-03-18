@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text } from "react-native";
+import Colors from "../../assets/colors/colors";
 
 function CustomButton({ text, onPress, disabled, style }) {
   return (
@@ -25,12 +26,12 @@ const styles = StyleSheet.create({
     height: 56,
     paddingHorizontal: 10,
     paddingVertical: 3,
-    backgroundColor: "#497ee8",
+    backgroundColor: Colors.blue100,
     justifyContent: "center",
     alignItems: "center",
   },
   pressed: {
-    backgroundColor: "#7499e4",
+    backgroundColor: Colors.blue200,
   },
   text: {
     color: "white",

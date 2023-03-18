@@ -4,27 +4,28 @@
     "slug": "sweeftProject",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/icon.png",
+    "icon": "./src/assets/pictures/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./src/assets/Peter_Griffin.webp",
+      "image": "./src/assets/pictures/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/pictures/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./src/assets/favicon.png"
+      "favicon": "./src/assets/pictures/favicon.png"
     }
   }
 }

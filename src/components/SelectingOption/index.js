@@ -9,6 +9,9 @@ function SelectingOption({
   confirmed,
   correct,
 }) {
+  function selectHandler(value) {
+    setSelected(value);
+  }
   let style;
   if (selected === givenName) {
     style = styles.selectedSelect;
@@ -24,7 +27,7 @@ function SelectingOption({
   }
   return (
     <Pressable
-      onPress={() => setSelected(givenName)}
+      onPress={selectHandler.bind(this, givenName)}
       style={[styles.select, style]}
       disabled={confirmed}
     >

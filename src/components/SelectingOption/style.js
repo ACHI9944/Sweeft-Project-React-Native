@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import Colors from "../../assets/colors/colors";
 
 const SelectingOptionStyles = StyleSheet.create({
   select: {
@@ -7,12 +8,12 @@ const SelectingOptionStyles = StyleSheet.create({
     paddingHorizontal: 10,
     width: "100%",
     borderRadius: 10,
-    backgroundColor: "#f3f3f3",
+    backgroundColor: Colors.primary100,
     justifyContent: "center",
   },
   selectedSelect: {
     borderWidth: 2,
-    backgroundColor: "#dbdbdb",
+    backgroundColor: Colors.primary200,
   },
   correct: {
     backgroundColor: "green",

@@ -1,103 +1,133 @@
-import { useContext, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useContext, useEffect, useState } from "react";
 import { Alert, Image, View } from "react-native";
+import Colors from "../../assets/colors/colors";
 import ErrorModal from "../../components/ErrorModal";
 import SingleQuestion from "../../components/SingleQuestion";
 import CustomButton from "../../components/ui/CustomButton";
 import GradientText from "../../components/ui/GradientText";
 import LoadingOverlay from "../../components/ui/LoadingOverlay";
-import { AuthContext } from "../../store/auth-context";
+import { categories, difficulties, types } from "../../DummyHeaders";
+import { AuthContext } from "../../store/context";
 import { getQuestions, refreshToken } from "../../util/fetch";
-import {
-  categoryDetector,
-  difficultyDetector,
-  typeDetector,
-} from "../../util/valueDetectors";
 import StartingScreenStyle from "./style";
 
+//helper function for array shuffling
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
 const styles = StartingScreenStyle;
 function StartingScreen({ route, navigation }) {
   const authCtx = useContext(AuthContext);
-  const { number, category, difficulty, type } = route.params;
-  /* `https://opentdb.com/api.php?amount=${amount}&category=$
-  {categories[category]}&difficulty=${difficulties[difficulty]}&type=${types[type]}`
-  export const categories = {
-  "Any Category": 8,
-  "Sports": 21
-  }
-  export const difficulties = { .. }
-  export const types = { .. }
-  Object.keys(categories).map()
-  */
+  const { amount, category, difficulty, type } = route.params;
 
-  const url = `https://opentdb.com/api.php?amount=${number}${categoryDetector(
-    category
-  )}${difficultyDetector(difficulty)}${typeDetector(type)}&token=${
-    authCtx.token
-  }`;
+  //building URL accourding to choices
+  const url = `https://opentdb.com/api.php?amount=${amount}&category=${
+    categories[category] !== "any" ? categories[category] : ""
+  }&difficulty=${
+    difficulties[difficulty] !== "any" ? difficulties[difficulty] : ""
+  }&type=${types[type] !== "any" ? types[type] : ""}&token=${authCtx.token}`;
 
   const [fetchedQuestions, setFetchedQuestions] = useState([]);
-  const [isFetchingToken, setIsFetchingToken] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [recorder, setRecorder] = useState(1);
 
-  async function startHandler() {
-    setIsFetchingToken(true);
-    try {
-      const response = await getQuestions(url);
-      setIsFetchingToken(false);
-      if (response.data.response_code === 0) {
-        setFetchedQuestions(response.data.results);
-      } else if (response.data.response_code === 3) {
-        authCtx.clearNameAndToken();
-        Alert.alert(
-          "Your session has timed out, please re-enter your name to start again"
-        );
-      } else setErrorModalVisible(true);
-    } catch (error) {
-      Alert.alert("Could not proceed, please try again later");
-      setIsFetchingToken(false);
+  //fetching questions
+  useEffect(() => {
+    async function fetchHandler() {
+      setIsLoading(true);
+      try {
+        const response = await getQuestions(url);
+        setIsLoading(false);
+        const date = new Date().getTime().toString();
+        await AsyncStorage.setItem("date", date);
+
+        if (response.data.response_code === 0) {
+          setFetchedQuestions(response.data.results);
+        } else if (response.data.response_code === 3) {
+          await AsyncStorage.clear();
+          authCtx.clearNameAndToken();
+          Alert.alert(
+            "Your session has timed out, please re-enter your name to start again"
+          );
+        } else setErrorModalVisible(true);
+      } catch (error) {
+        Alert.alert("Could not proceed, please try again later");
+        setIsLoading(false);
+      }
     }
+    fetchHandler();
+  }, []);
+
+  //preparing fetched for child element
+  const curQuestionData = fetchedQuestions[recorder - 1];
+  const questionsAmount = fetchedQuestions.length;
+  let shuffledAnswers;
+  if (fetchedQuestions.length > 0) {
+    shuffledAnswers = [
+      ...curQuestionData.incorrect_answers,
+      curQuestionData.correct_answer,
+    ];
+    shuffleArray(shuffledAnswers);
   }
 
+  //game starter
+  function startHandler() {
+    setGameStarted(true);
+  }
+
+  //fetcher function in case if user wants to refresh token
   async function refreshHandler() {
-    setIsFetchingToken(true);
+    setIsLoading(true);
     try {
       await refreshToken(authCtx.token);
       navigation.goBack();
-      setIsFetchingToken(false);
+      setIsLoading(false);
       Alert.alert("Question history refreshed");
     } catch (error) {
       Alert.alert("Could not proceed, please try again later");
-      setIsFetchingToken(false);
+      setIsLoading(false);
     }
   }
+  function goBackHandler() {
+    navigation.goBack();
+  }
 
-  if (isFetchingToken) {
+  if (isLoading) {
     return <LoadingOverlay />;
   }
 
   return (
     <>
-      {fetchedQuestions.length > 0 ? (
+      {fetchedQuestions.length > 0 && gameStarted ? (
         <SingleQuestion
-          setFetchedQuestions={setFetchedQuestions}
-          fetchedQuestions={fetchedQuestions}
+          curQuestionData={curQuestionData}
+          shuffledAnswers={shuffledAnswers}
+          setRecorder={setRecorder}
+          recorder={recorder}
+          questionsAmount={questionsAmount}
         />
       ) : (
         <View style={styles.screen}>
           <GradientText
-            gradientColors={["#C5bd23", "#1453a0"]}
+            gradientColors={[Colors.gradient100, Colors.gradient200]}
             textStyle={styles.readyText}
           >
             Ready?
           </GradientText>
           <Image
             style={styles.image}
-            source={require("../../assets/flat-people-asking-questions-illustration_23-2148901520.avif")}
+            source={require("../../assets/pictures/flat-people-asking-questions-illustration_23-2148901520.avif")}
           />
 
           <View style={styles.buttons}>
             <View style={styles.button}>
-              <CustomButton onPress={() => navigation.goBack()} text="Back" />
+              <CustomButton onPress={goBackHandler} text="Back" />
             </View>
             <View style={styles.button}>
               <CustomButton text="Start" onPress={startHandler} />

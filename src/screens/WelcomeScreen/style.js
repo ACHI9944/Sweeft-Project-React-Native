@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import Colors from "../../assets/colors/colors";
 
 const WelcomeScreenStyle = StyleSheet.create({
   mainScreen: {
@@ -25,7 +26,7 @@ const WelcomeScreenStyle = StyleSheet.create({
     fontFamily: "Main",
   },
   inputView: {
-    backgroundColor: "#fbfbfb",
+    backgroundColor: Colors.primary100,
     borderWidth: 2,
     borderRadius: 10,
     width: "100%",

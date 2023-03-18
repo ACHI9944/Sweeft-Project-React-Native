@@ -1,12 +1,22 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useContext } from "react";
 import { Modal, Platform, Pressable, Text, View } from "react-native";
-import { AuthContext } from "../../store/auth-context";
+import { AuthContext } from "../../store/context";
 import CustomButton from "../ui/CustomButton";
 import ConfirmModalStyle from "./style";
 
 const styles = ConfirmModalStyle;
 
 function ConfirmModal({ modalVisible, setModalVisible }) {
+  function modalHandler() {
+    setModalVisible(!modalVisible);
+  }
+  async function clearHandler() {
+    authCtx.clearNameAndToken();
+    await AsyncStorage.removeItem("token");
+    await AsyncStorage.removeItem("name");
+  }
+
   const authCtx = useContext(AuthContext);
   return (
     <Modal animationType="fade" transparent={true} visible={modalVisible}>
@@ -15,7 +25,7 @@ function ConfirmModal({ modalVisible, setModalVisible }) {
           Platform.OS === "ios" ? styles.iOSBackdrop : styles.androidBackdrop,
           styles.backdrop,
         ]}
-        onPress={() => setModalVisible(!modalVisible)}
+        onPress={modalHandler}
       />
 
       <View style={styles.modal}>
@@ -28,16 +38,10 @@ function ConfirmModal({ modalVisible, setModalVisible }) {
         </View>
         <View style={styles.buttons}>
           <View style={styles.button}>
-            <CustomButton
-              onPress={() => authCtx.clearNameAndToken()}
-              text="Yes"
-            />
+            <CustomButton onPress={clearHandler} text="Yes" />
           </View>
           <View style={styles.button}>
-            <CustomButton
-              onPress={() => setModalVisible(!modalVisible)}
-              text="No"
-            />
+            <CustomButton onPress={modalHandler} text="No" />
           </View>
         </View>
       </View>

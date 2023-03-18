@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
+import Colors from "../../assets/colors/colors";
 const device = Dimensions.get("window");
 
 const ChoosingScreenStyle = StyleSheet.create({
@@ -34,7 +35,7 @@ const ChoosingScreenStyle = StyleSheet.create({
   rules: {
     fontSize: 19,
     fontFamily: "Main",
-    color: "#497ee8",
+    color: Colors.blue100,
   },
 
   numberDescription: {
@@ -46,7 +47,7 @@ const ChoosingScreenStyle = StyleSheet.create({
 
   numberView: {
     marginTop: 3,
-    backgroundColor: "#f3f3f3",
+    backgroundColor: Colors.primary100,
     borderRadius: 10,
     height: 50,
     paddingHorizontal: 10,
@@ -73,7 +74,7 @@ const ChoosingScreenStyle = StyleSheet.create({
   },
   select: {
     marginTop: 3,
-    backgroundColor: "#f3f3f3",
+    backgroundColor: Colors.primary100,
     borderRadius: 10,
     height: 50,
     paddingHorizontal: 10,

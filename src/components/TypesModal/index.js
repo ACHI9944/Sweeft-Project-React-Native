@@ -1,5 +1,5 @@
 import { Pressable, ScrollView, Text, View } from "react-native";
-import DummyHeaders from "../../DummyHeaders";
+import { types } from "../../DummyHeaders";
 import CustomButton from "../ui/CustomButton";
 import TypesModalStyle from "./style";
 
@@ -16,17 +16,17 @@ function TypesModal({ setType, selectedType, onCancel }) {
         style={styles.types}
         contentContainerStyle={styles.contentContainerStyle}
       >
-        {DummyHeaders.types.map((difficulty) => {
+        {Object.keys(types).map((type) => {
           return (
             <Pressable
-              key={difficulty.value}
-              onPress={() => pressHandler(difficulty.name)}
+              key={types[type]}
+              onPress={pressHandler.bind(this, type)}
               style={[
                 styles.type,
-                selectedType === difficulty.name && styles.selectedType,
+                selectedType === type && styles.selectedType,
               ]}
             >
-              <Text style={styles.typeText}>{difficulty.name}</Text>
+              <Text style={styles.typeText}>{type}</Text>
             </Pressable>
           );
         })}

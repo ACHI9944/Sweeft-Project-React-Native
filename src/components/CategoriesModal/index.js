@@ -1,6 +1,5 @@
 import { Pressable, ScrollView, Text, View } from "react-native";
-import DummyHeaders from "../../DummyHeaders";
-
+import { categories } from "../../DummyHeaders";
 import CustomButton from "../ui/CustomButton";
 import CategoriesModalStyle from "./style";
 
@@ -16,17 +15,17 @@ function CategoriesModal({ selectedCategory, setCategory, onCancel }) {
         style={styles.categories}
         contentContainerStyle={styles.contentContainerStyle}
       >
-        {DummyHeaders.categories.map((category) => {
+        {Object.keys(categories).map((category) => {
           return (
             <Pressable
-              key={category.value}
-              onPress={() => pressHandler(category.name)}
+              key={categories[category]}
+              onPress={pressHandler.bind(this, category)}
               style={[
                 styles.category,
-                selectedCategory === category.name && styles.selectedCategory,
+                selectedCategory === category && styles.selectedCategory,
               ]}
             >
-              <Text style={styles.categoryText}>{category.name}</Text>
+              <Text style={styles.categoryText}>{category}</Text>
             </Pressable>
           );
         })}

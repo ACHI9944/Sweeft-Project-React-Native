@@ -1,7 +1,7 @@
 import { Pressable, ScrollView, Text, View } from "react-native";
 import CustomButton from "../ui/CustomButton";
 import DifficultiesModalStyle from "./style";
-import DummyHeaders from "../../DummyHeaders";
+import { difficulties } from "../../DummyHeaders";
 
 const styles = DifficultiesModalStyle;
 
@@ -16,18 +16,17 @@ function DifficultiesModal({ setDifficulty, selectedDifficulty, onCancel }) {
         style={styles.difficulties}
         contentContainerStyle={styles.contentContainerStyle}
       >
-        {DummyHeaders.difficulties.map((difficulty) => {
+        {Object.keys(difficulties).map((difficulty) => {
           return (
             <Pressable
-              key={difficulty.value}
-              onPress={() => pressHandler(difficulty.name)}
+              key={difficulties[difficulty]}
+              onPress={pressHandler.bind(this, difficulty)}
               style={[
                 styles.difficulty,
-                selectedDifficulty === difficulty.name &&
-                  styles.selectedDifficulty,
+                selectedDifficulty === difficulty && styles.selectedDifficulty,
               ]}
             >
-              <Text style={styles.difficultyText}>{difficulty.name}</Text>
+              <Text style={styles.difficultyText}>{difficulty}</Text>
             </Pressable>
           );
         })}

@@ -1,9 +1,11 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useContext, useState } from "react";
 import { Alert, SafeAreaView, Text, TextInput, View } from "react-native";
+import Colors from "../../assets/colors/colors";
 import CustomButton from "../../components/ui/CustomButton";
 import GradientText from "../../components/ui/GradientText";
 import LoadingOverlay from "../../components/ui/LoadingOverlay";
-import { AuthContext } from "../../store/auth-context";
+import { AuthContext } from "../../store/context";
 import { getToken } from "../../util/fetch";
 
 import WelcomeScreenStyle from "./style";
@@ -13,21 +15,23 @@ const styles = WelcomeScreenStyle;
 function WelcomeScreen() {
   const [name, setName] = useState("");
   const authCtx = useContext(AuthContext);
-  const [isFetchingToken, setIsFetchingToken] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function submitHandler() {
-    setIsFetchingToken(true);
+    setIsLoading(true);
     try {
       const requestedData = await getToken();
       const { token } = requestedData.data;
       authCtx.setNameAndToken(token, name);
+      await AsyncStorage.setItem("token", token);
+      await AsyncStorage.setItem("name", name);
     } catch (error) {
       Alert.alert("Could not proceed, please try again later");
     } finally {
-      setIsFetchingToken(false);
+      setIsLoading(false);
     }
   }
-  if (isFetchingToken) {
+  if (isLoading) {
     return <LoadingOverlay />;
   }
 
@@ -35,7 +39,7 @@ function WelcomeScreen() {
     <SafeAreaView style={styles.mainScreen}>
       <View style={styles.screen}>
         <GradientText
-          gradientColors={["#C5bd23", "#1453a0"]}
+          gradientColors={[Colors.gradient100, Colors.gradient200]}
           textStyle={styles.quizgame}
         >
           Quiz Game
