@@ -3,7 +3,7 @@ import Colors from "../../assets/colors/colors";
 
 const SelectingOptionStyles = StyleSheet.create({
   select: {
-    marginVertical: 10,
+    marginVertical: 7,
     height: 50,
     paddingHorizontal: 10,
     width: "100%",

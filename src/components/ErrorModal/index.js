@@ -38,9 +38,8 @@ function ErrorModal({
             specific category has.
           </Text>
           <Text style={styles.smallText}>
-            ___ Please choose different amount of questions or different
-            category, or refresh your game history to be able to do same
-            questions again!
+            ___ Press Ok to return to options menu. Or refresh your game
+            history.
           </Text>
         </View>
         <View style={styles.buttons}>
@@ -48,7 +47,7 @@ function ErrorModal({
             <CustomButton onPress={refreshHandler} text="Refresh" />
           </View>
           <View style={styles.button}>
-            <CustomButton onPress={closeHandler} text="Close" />
+            <CustomButton onPress={closeHandler} text="Ok" />
           </View>
         </View>
       </View>

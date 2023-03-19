@@ -30,10 +30,6 @@ function ConfirmModal({ modalVisible, setModalVisible }) {
       <View style={styles.modal}>
         <View style={styles.modalTexts}>
           <Text style={styles.bigText}>Are You Sure?</Text>
-          <Text style={styles.smallText}>
-            You will also reset history and may meet questions that you have
-            already answered before...
-          </Text>
         </View>
         <View style={styles.buttons}>
           <View style={styles.button}>

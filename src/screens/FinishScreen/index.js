@@ -1,16 +1,13 @@
-import { useContext } from "react";
-import { Button, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import Colors from "../../assets/colors/colors";
+import CustomButton from "../../components/ui/CustomButton";
 import GradientText from "../../components/ui/GradientText";
-import { AuthContext } from "../../store/context";
+
 import FinishScreenStyle from "./style";
 
 const styles = FinishScreenStyle;
 
 function FinishScreen({ route, navigation }) {
-  const authCtx = useContext(AuthContext);
-  const { name } = authCtx;
-
   const score = route.params.points;
   const answeredQuestions = route.params.questions;
   const percentage = +((score / answeredQuestions) * 100)
@@ -24,37 +21,58 @@ function FinishScreen({ route, navigation }) {
   return (
     <View style={styles.screen}>
       <View style={styles.summary}>
-        <View style={styles.rateView}>
+        <View style={styles.headerView}>
           <GradientText
             gradientColors={[Colors.gradient100, Colors.gradient200]}
-            textStyle={styles.rateText}
+            textStyle={styles.header}
           >
-            {percentage < 10
-              ? "Bad Luck"
-              : percentage >= 10 && percentage < 30
-              ? "Not Bad"
-              : percentage >= 30 && percentage < 60
-              ? "Good"
-              : percentage >= 60 && percentage < 90
-              ? "Great Job"
-              : percentage >= 90 && percentage < 100
-              ? "Awsome"
-              : percentage === 100
-              ? "Perfect"
-              : null}
+            Results
           </GradientText>
-          <Text style={styles.nameText}>'' {name} ''</Text>
         </View>
+        <Text style={styles.scores}>
+          Score: {score} / {answeredQuestions}
+        </Text>
+        <Text style={styles.scores}>Rate: {percentage} %</Text>
+
         <View style={styles.scoresView}>
-          <Text style={styles.scores}>
-            You answered {score} out of {answeredQuestions} question correctly
-          </Text>
+          <View style={styles.percentage}>
+            <View
+              style={[
+                styles.percentageCounter,
+                {
+                  width: `${percentage.toString()}%`,
+                },
+              ]}
+            ></View>
+          </View>
         </View>
-        <Text style={styles.topText}> your total score is {percentage} %</Text>
       </View>
-      <Button title="restart" onPress={navigateHandler} />
+
+      <Image
+        source={require("../../assets/pictures/testresults.png")}
+        style={styles.image}
+      />
+
+      <CustomButton text="Back To Menu" onPress={navigateHandler} />
     </View>
   );
 }
 
 export default FinishScreen;
+{
+  /* <Text>
+           {percentage < 10
+            ? "Bad Luck"
+            : percentage >= 10 && percentage < 30
+            ? "Not Bad"
+            : percentage >= 30 && percentage < 60
+            ? "Good"
+            : percentage >= 60 && percentage < 90
+            ? "Great Job"
+            : percentage >= 90 && percentage < 100
+            ? "Awsome"
+            : percentage === 100
+            ? "Perfect"
+            : null} 
+        </Text> */
+}

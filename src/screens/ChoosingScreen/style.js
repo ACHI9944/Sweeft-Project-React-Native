@@ -24,7 +24,7 @@ const ChoosingScreenStyle = StyleSheet.create({
   },
   nameText: {
     fontSize: 30,
-    fontFamily: "Main",
+    fontFamily: "Helper",
   },
   rulesView: {
     alignItems: "center",

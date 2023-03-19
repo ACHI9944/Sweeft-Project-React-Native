@@ -18,8 +18,8 @@ function CategoriesModal({ selectedCategory, setCategory, onCancel }) {
         {Object.keys(categories).map((category) => {
           return (
             <Pressable
-              key={categories[category]}
-              onPress={pressHandler.bind(this, category)}
+              key={category}
+              onPress={() => pressHandler(category)}
               style={[
                 styles.category,
                 selectedCategory === category && styles.selectedCategory,

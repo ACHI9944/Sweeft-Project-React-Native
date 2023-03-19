@@ -23,6 +23,7 @@ const SingleQuestionStyle = StyleSheet.create({
     backgroundColor: Colors.primary100,
     alignItems: "center",
     borderRadius: 10,
+    marginVertical: 20
   },
   question: {
     marginVertical: 20,

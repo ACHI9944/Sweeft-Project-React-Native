@@ -19,8 +19,8 @@ function TypesModal({ setType, selectedType, onCancel }) {
         {Object.keys(types).map((type) => {
           return (
             <Pressable
-              key={types[type]}
-              onPress={pressHandler.bind(this, type)}
+              key={type}
+              onPress={() => pressHandler(type)}
               style={[
                 styles.type,
                 selectedType === type && styles.selectedType,

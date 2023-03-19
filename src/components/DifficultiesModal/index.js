@@ -19,8 +19,8 @@ function DifficultiesModal({ setDifficulty, selectedDifficulty, onCancel }) {
         {Object.keys(difficulties).map((difficulty) => {
           return (
             <Pressable
-              key={difficulties[difficulty]}
-              onPress={pressHandler.bind(this, difficulty)}
+              key={difficulty}
+              onPress={() => pressHandler(difficulty)}
               style={[
                 styles.difficulty,
                 selectedDifficulty === difficulty && styles.selectedDifficulty,

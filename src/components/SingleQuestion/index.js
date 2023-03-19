@@ -18,8 +18,8 @@ function SingleQuestion({
   const [point, setPoint] = useState(0);
   const [selected, setSelected] = useState("");
   const [confirmed, setConfirmed] = useState(false);
-  const coorectAnswer = curQuestionData.correct_answer;
-
+  const coorectAnswer = decodeURIComponent(curQuestionData.correct_answer);
+  const question = decodeURIComponent(curQuestionData.question);
 
   //function for changing questions and also for navigating when its done.
   function confirmHandler() {
@@ -51,17 +51,17 @@ function SingleQuestion({
           {recorder} / {questionsAmount}
         </Text>
         <View style={styles.questionView}>
-          <Text style={styles.question}>{curQuestionData.question}</Text>
+          <Text style={styles.question}>{question}</Text>
         </View>
         {shuffledAnswers.map((answer) => {
           return (
             <SelectingOption
               key={answer}
-              givenName={answer}
+              answer={decodeURIComponent(answer)}
               setSelected={setSelected}
               selected={selected}
               confirmed={confirmed}
-              correct={curQuestionData.correct_answer}
+              correct={coorectAnswer}
             />
           );
         })}

@@ -6,7 +6,7 @@ import { AuthContext } from "../store/context";
 import GameStack from "./GameStack";
 
 function Navigation() {
-  const [isTryingFetch, setIsTryingFetch] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const authCtx = useContext(AuthContext);
 
   useEffect(() => {
@@ -26,12 +26,12 @@ function Navigation() {
         await AsyncStorage.setItem("date", newDate.toString());
         authCtx.setNameAndToken(storedToken, storedName);
       }
-      setIsTryingFetch(false);
+      setIsLoading(false);
     }
 
     fetchToken();
   }, []);
-  if (isTryingFetch) {
+  if (isLoading) {
     return <LoadingOverlay />;
   }
   return <>{!!authCtx.token ? <GameStack /> : <WelcomeScreen />}</>;

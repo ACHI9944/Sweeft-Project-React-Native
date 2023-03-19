@@ -48,6 +48,7 @@ function ChoosingScreen({ navigation }) {
       type,
     });
   }
+
   //function for opening and closing modalize
   function refHandler(ref, action) {
     if (action === "open") {
@@ -78,8 +79,6 @@ function ChoosingScreen({ navigation }) {
             </Text>
           </View>
 
-          {/* Amount Input and custom select buttons with Modalize  */}
-
           <Text style={styles.numberDescription}>
             Number of Questions 1 - 50:
           </Text>
@@ -102,7 +101,7 @@ function ChoosingScreen({ navigation }) {
 
           <Text style={styles.selectDescription}>Select Category:</Text>
           <Pressable
-            onPress={refHandler.bind(this, modalizeRefCategory, "open")}
+            onPress={() => refHandler(modalizeRefCategory, "open")}
             style={styles.select}
           >
             <Text style={styles.selectText}>{category}</Text>
@@ -110,7 +109,7 @@ function ChoosingScreen({ navigation }) {
 
           <Text style={styles.selectDescription}>Select Difficulty:</Text>
           <Pressable
-            onPress={refHandler.bind(this, modalizeRefDifficulty, "open")}
+            onPress={() => refHandler(modalizeRefDifficulty, "open")}
             style={styles.select}
           >
             <Text style={styles.selectText}>{difficulty}</Text>
@@ -118,7 +117,7 @@ function ChoosingScreen({ navigation }) {
 
           <Text style={styles.selectDescription}>Select Type:</Text>
           <Pressable
-            onPress={refHandler.bind(this, modalizeRefType, "open")}
+            onPress={() => refHandler(modalizeRefType, "open")}
             style={styles.select}
           >
             <Text style={styles.selectText}>{type}</Text>
@@ -126,13 +125,13 @@ function ChoosingScreen({ navigation }) {
           <CustomButton
             onPress={clearHandler}
             style={styles.clearButton}
-            text="Default"
+            text="Set Default"
           />
         </View>
 
         <View style={styles.buttons}>
           <View style={styles.button}>
-            <CustomButton onPress={modalHandler} text="Reset" />
+            <CustomButton onPress={modalHandler} text="Exit" />
           </View>
           <View style={styles.button}>
             <CustomButton
@@ -144,7 +143,6 @@ function ChoosingScreen({ navigation }) {
         </View>
       </View>
 
-      {/* Modal for confirming reset */}
       <ConfirmModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
@@ -155,7 +153,7 @@ function ChoosingScreen({ navigation }) {
         <CategoriesModal
           setCategory={setCategory}
           selectedCategory={category}
-          onCancel={refHandler.bind(this, modalizeRefCategory, "close")}
+          onCancel={() => refHandler(modalizeRefCategory, "close")}
         />
       </Modalize>
 
@@ -163,7 +161,7 @@ function ChoosingScreen({ navigation }) {
         <DifficultiesModal
           setDifficulty={setDifficulty}
           selectedDifficulty={difficulty}
-          onCancel={refHandler.bind(this, modalizeRefDifficulty, "close")}
+          onCancel={() => refHandler(modalizeRefDifficulty, "close")}
         />
       </Modalize>
 
@@ -171,7 +169,7 @@ function ChoosingScreen({ navigation }) {
         <TypesModal
           setType={setType}
           selectedType={type}
-          onCancel={refHandler.bind(this, modalizeRefType, "close")}
+          onCancel={() => refHandler(modalizeRefType, "close")}
         />
       </Modalize>
     </>

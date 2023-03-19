@@ -18,20 +18,18 @@ const ErrorModalStyle = StyleSheet.create({
   },
 
   modal: {
-    width: (device.width * 4) / 5,
-    height: (device.height * 1) / 2,
+    width: (device.width * 4.2) / 5,
+    height: (device.height * 1.1) / 2,
     position: "absolute",
-    top: device.height / 2 - (device.height * 1) / 4,
-    left: device.width / 2 - (device.width * 4.2) / 10.4,
+    left: device.width / 2 - (device.width * 4.2) / 10,
+    top: device.height / 2 - (device.height * 1.1) / 4,
     borderRadius: 10,
     backgroundColor: "white",
     alignItems: "center",
     padding: 10,
     justifyContent: "space-between",
   },
-  /* modalTexts: {
-    alignItems: "stretch",
-  }, */
+
   bigText: {
     fontSize: 30,
     fontFamily: "Main",
@@ -40,7 +38,6 @@ const ErrorModalStyle = StyleSheet.create({
   },
   smallText: {
     marginBottom: 10,
-    /* textAlign: "stretch", */
     fontSize: 18,
     fontFamily: "Main",
   },

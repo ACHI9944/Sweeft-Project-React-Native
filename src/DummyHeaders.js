@@ -1,5 +1,5 @@
 export const categories = {
-  "Any Category": "any",
+  "Any Category": "",
   "General Knowledge": 9,
   "Entertainment: Books": 10,
   "Entertainment: Film": 11,
@@ -26,16 +26,14 @@ export const categories = {
   "Entertainment: Cartoon & Animations": 32,
 };
 export const difficulties = {
-  "Any Difficulty": "any",
+  "Any Difficulty": "",
   Easy: "easy",
   Medium: "medium",
   Hard: "hard",
 };
 
 export const types = {
-  "Any Type": "any",
+  "Any Type": "",
   "Multiple Choice": "multiple",
   "True / False": "boolean",
 };
-
-

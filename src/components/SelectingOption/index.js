@@ -3,7 +3,7 @@ import SelectingOptionStyles from "./style";
 
 const styles = SelectingOptionStyles;
 function SelectingOption({
-  givenName,
+  answer,
   setSelected,
   selected,
   confirmed,
@@ -13,32 +13,32 @@ function SelectingOption({
     setSelected(value);
   }
   let style;
-  if (selected === givenName) {
+  if (selected === answer) {
     style = styles.selectedSelect;
   }
-  if (selected === givenName && confirmed && correct === givenName) {
+  if (selected === answer && confirmed && correct === answer) {
     style = styles.correct;
   }
-  if (selected === givenName && confirmed && correct !== givenName) {
+  if (selected === answer && confirmed && correct !== answer) {
     style = styles.inCorrect;
   }
-  if (confirmed && correct === givenName) {
+  if (confirmed && correct === answer) {
     style = styles.correct;
   }
   return (
     <Pressable
-      onPress={selectHandler.bind(this, givenName)}
+      onPress={() => selectHandler(answer)}
       style={[styles.select, style]}
       disabled={confirmed}
     >
       <Text
         style={[
           styles.text,
-          selected === givenName && confirmed && styles.correctText,
-          confirmed && correct === givenName && styles.correctText,
+          selected === answer && confirmed && styles.correctText,
+          confirmed && correct === answer && styles.correctText,
         ]}
       >
-        {givenName}
+        {answer}
       </Text>
     </Pressable>
   );

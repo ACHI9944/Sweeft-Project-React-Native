@@ -25,11 +25,7 @@ function StartingScreen({ route, navigation }) {
   const { amount, category, difficulty, type } = route.params;
 
   //building URL accourding to choices
-  const url = `https://opentdb.com/api.php?amount=${amount}&category=${
-    categories[category] !== "any" ? categories[category] : ""
-  }&difficulty=${
-    difficulties[difficulty] !== "any" ? difficulties[difficulty] : ""
-  }&type=${types[type] !== "any" ? types[type] : ""}&token=${authCtx.token}`;
+  const url = `https://opentdb.com/api.php?amount=${amount}&category=${categories[category]}&difficulty=${difficulties[difficulty]}&type=${types[type]}&token=${authCtx.token}&encode=url3986`;
 
   const [fetchedQuestions, setFetchedQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -69,7 +65,7 @@ function StartingScreen({ route, navigation }) {
 
   let shuffledAnswers;
   if (fetchedQuestions.length > 0) {
-    console.log(curQuestionData.correct_answer);
+    console.log(decodeURIComponent(curQuestionData.correct_answer));
     shuffledAnswers = [
       ...curQuestionData.incorrect_answers,
       curQuestionData.correct_answer,
@@ -123,7 +119,7 @@ function StartingScreen({ route, navigation }) {
           </GradientText>
           <Image
             style={styles.image}
-            source={require("../../assets/pictures/flat-people-asking-questions-illustration_23-2148901520.avif")}
+            source={require("../../assets/pictures/startingScreen.png")}
           />
 
           <View style={styles.buttons}>
