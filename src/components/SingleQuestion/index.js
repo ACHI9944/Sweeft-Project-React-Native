@@ -18,15 +18,21 @@ function SingleQuestion({
   const [point, setPoint] = useState(0);
   const [selected, setSelected] = useState("");
   const [confirmed, setConfirmed] = useState(false);
+  const coorectAnswer = curQuestionData.correct_answer;
+
 
   //function for changing questions and also for navigating when its done.
+  function confirmHandler() {
+    setConfirmed(true);
+  }
+
   function nextHandler() {
-    if (selected === curQuestionData.correct_answer) {
+    if (selected === coorectAnswer) {
       setPoint(point + 1);
     }
     if (questionsAmount === recorder) {
       navigation.navigate("finished", {
-        points: point,
+        points: selected === coorectAnswer ? point + 1 : point,
         questions: questionsAmount,
       });
     } else setRecorder(recorder + 1);
@@ -36,9 +42,6 @@ function SingleQuestion({
 
   function exitHandler() {
     navigation.goBack();
-  }
-  function confirmHandler() {
-    setConfirmed(true);
   }
 
   return (
@@ -77,7 +80,7 @@ function SingleQuestion({
                 ? "Next"
                 : "Finish"
             }
-            onPress={selected && !confirmed ? confirmHandler : nextHandler}
+            onPress={!confirmed ? confirmHandler : nextHandler}
           />
         </View>
       </View>

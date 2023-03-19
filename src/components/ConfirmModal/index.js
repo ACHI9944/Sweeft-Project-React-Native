@@ -12,9 +12,8 @@ function ConfirmModal({ modalVisible, setModalVisible }) {
     setModalVisible(!modalVisible);
   }
   async function clearHandler() {
+    await AsyncStorage.clear();
     authCtx.clearNameAndToken();
-    await AsyncStorage.removeItem("token");
-    await AsyncStorage.removeItem("name");
   }
 
   const authCtx = useContext(AuthContext);

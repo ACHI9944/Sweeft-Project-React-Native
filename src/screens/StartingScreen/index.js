@@ -43,10 +43,9 @@ function StartingScreen({ route, navigation }) {
       setIsLoading(true);
       try {
         const response = await getQuestions(url);
+        const newDate = new Date().getTime();
+        await AsyncStorage.setItem("date", newDate.toString());
         setIsLoading(false);
-        const date = new Date().getTime().toString();
-        await AsyncStorage.setItem("date", date);
-
         if (response.data.response_code === 0) {
           setFetchedQuestions(response.data.results);
         } else if (response.data.response_code === 3) {
@@ -67,8 +66,10 @@ function StartingScreen({ route, navigation }) {
   //preparing fetched for child element
   const curQuestionData = fetchedQuestions[recorder - 1];
   const questionsAmount = fetchedQuestions.length;
+
   let shuffledAnswers;
   if (fetchedQuestions.length > 0) {
+    console.log(curQuestionData.correct_answer);
     shuffledAnswers = [
       ...curQuestionData.incorrect_answers,
       curQuestionData.correct_answer,

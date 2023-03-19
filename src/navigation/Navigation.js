@@ -13,15 +13,17 @@ function Navigation() {
     async function fetchToken() {
       const storedToken = await AsyncStorage.getItem("token");
       const storedName = await AsyncStorage.getItem("name");
-      const storedDate = +(await AsyncStorage.getItem("date"));
+      const storedDate = await AsyncStorage.getItem("date");
       const newDate = new Date().getTime();
       const timePassed = ((newDate - storedDate) * 0.001) / 60 / 60;
 
-      if (timePassed > 5.5) {
+      if (timePassed > 5) {
         await AsyncStorage.clear();
+        authCtx.clearNameAndToken();
       }
 
-      if (storedToken && storedName) {
+      if (!!storedToken && !!storedName) {
+        await AsyncStorage.setItem("date", newDate.toString());
         authCtx.setNameAndToken(storedToken, storedName);
       }
       setIsTryingFetch(false);

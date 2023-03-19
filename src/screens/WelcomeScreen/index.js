@@ -22,9 +22,11 @@ function WelcomeScreen() {
     try {
       const requestedData = await getToken();
       const { token } = requestedData.data;
-      authCtx.setNameAndToken(token, name);
+      const newDate = new Date().getTime();
       await AsyncStorage.setItem("token", token);
       await AsyncStorage.setItem("name", name);
+      await AsyncStorage.setItem("date", newDate.toString());
+      authCtx.setNameAndToken(token, name);
     } catch (error) {
       Alert.alert("Could not proceed, please try again later");
     } finally {
