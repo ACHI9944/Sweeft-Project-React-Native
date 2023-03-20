@@ -1,40 +1,42 @@
 import { useContext, useRef, useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
+import { AuthContext } from "../../context/context";
 import { Modalize } from "react-native-modalize";
 import GradientText from "../../components/ui/GradientText";
-import { AuthContext } from "../../store/context";
 import CategoriesModal from "../../components/CategoriesModal";
-import ChoosingScreenStyle from "./style";
 import DifficultiesModal from "../../components/DifficultiesModal";
 import TypesModal from "../../components/TypesModal";
 import CustomButton from "../../components/ui/CustomButton";
 import ConfirmModal from "../../components/ConfirmModal";
-import Colors from "../../assets/colors/colors";
+import ChoosingScreenStyle from "./style";
 
-const styles = ChoosingScreenStyle;
-/* Simple validation for number input */
 function isValidNum(value) {
   return value > 0 && value < 51;
 }
+const styles = ChoosingScreenStyle;
 
 function ChoosingScreen({ navigation }) {
+  const authCtx = useContext(AuthContext);
   const [amount, setAmount] = useState();
   const [isTouched, setIsTouched] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [category, setCategory] = useState("Any Category");
   const [difficulty, setDifficulty] = useState("Any Difficulty");
   const [type, setType] = useState("Any Type");
-  const [modalVisible, setModalVisible] = useState(false);
 
-  const authCtx = useContext(AuthContext);
-  const { name } = authCtx;
-
-  /* refs and states for custom select buttons with Modalize */
-
+  /* refs for custom select buttons with Modalize */
   const modalizeRefCategory = useRef(null);
   const modalizeRefDifficulty = useRef(null);
   const modalizeRefType = useRef(null);
 
-  function clearHandler() {
+  //function for opening and closing select modalize
+  function refHandler(ref, action) {
+    if (action === "open") {
+      ref.current?.open();
+    } else ref.current?.close();
+  }
+
+  function setDefault() {
     setAmount("10");
     setCategory("Any Category");
     setDifficulty("Any Difficulty");
@@ -49,13 +51,6 @@ function ChoosingScreen({ navigation }) {
     });
   }
 
-  //function for opening and closing modalize
-  function refHandler(ref, action) {
-    if (action === "open") {
-      ref.current?.open();
-    } else ref.current?.close();
-  }
-
   function modalHandler() {
     setModalVisible(!modalVisible);
   }
@@ -65,13 +60,8 @@ function ChoosingScreen({ navigation }) {
       <View style={styles.screen}>
         <View style={styles.form}>
           <View style={styles.welocomeView}>
-            <GradientText
-              gradientColors={[Colors.gradient100, Colors.gradient200]}
-              textStyle={styles.welcomeText}
-            >
-              Welcome
-            </GradientText>
-            <Text style={styles.nameText}>'' {name} ''</Text>
+            <GradientText textStyle={styles.welcomeText}>Welcome</GradientText>
+            <Text style={styles.nameText}>'' {authCtx.name} ''</Text>
           </View>
           <View style={styles.rulesView}>
             <Text style={styles.rules}>
@@ -123,7 +113,7 @@ function ChoosingScreen({ navigation }) {
             <Text style={styles.selectText}>{type}</Text>
           </Pressable>
           <CustomButton
-            onPress={clearHandler}
+            onPress={setDefault}
             style={styles.clearButton}
             text="Set Default"
           />

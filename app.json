@@ -4,7 +4,7 @@
     "slug": "sweeftProject",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/pictures/icon.png",
+    "icon": "./src/assets/pictures/gameIcon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./src/assets/pictures/openingScreen.png",

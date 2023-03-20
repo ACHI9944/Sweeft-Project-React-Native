@@ -2,25 +2,22 @@ import { StyleSheet } from "react-native";
 import Colors from "../../assets/colors/colors";
 
 const WelcomeScreenStyle = StyleSheet.create({
-  mainScreen: {
-    flex: 1,
-  },
   screen: {
     flex: 1,
     alignItems: "center",
-    padding: 20,
+    padding: 30,
+    backgroundColor: "white",
   },
   quizgame: {
     fontSize: 60,
     fontFamily: "Main",
     padding: 5,
   },
-
   text: {
-    fontSize: 25,
-    marginHorizontal: 30,
     textAlign: "center",
-    color: "#497ee8",
+    fontSize: 25,
+    marginHorizontal: 20,
+    color: Colors.blue100,
     fontWeight: "400",
     marginTop: 40,
     fontFamily: "Main",

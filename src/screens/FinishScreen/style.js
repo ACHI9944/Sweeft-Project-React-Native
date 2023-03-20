@@ -16,7 +16,7 @@ const FinishScreenStyle = StyleSheet.create({
 
   headerView: {
     alignItems: "center",
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
     paddingVertical: 10,
   },
   header: {
@@ -24,14 +24,13 @@ const FinishScreenStyle = StyleSheet.create({
     fontFamily: "Main",
   },
   scores: {
-    fontSize: 35,
-    fontFamily: "Helper",
+    fontSize: 40,
+    fontFamily: "Main",
     textAlign: "center",
     marginTop: 25,
   },
-  scoresView: {
+  percentageView: {
     alignItems: "center",
-
     justifyContent: "space-around",
   },
 
@@ -41,10 +40,11 @@ const FinishScreenStyle = StyleSheet.create({
     height: 40,
     backgroundColor: Colors.primary100,
     borderRadius: 5,
-    borderWidth: 2,
+    borderWidth: 1.2,
+    marginTop: 4,
   },
   percentageCounter: {
-    backgroundColor: "green",
+    backgroundColor: Colors.blue100,
     height: "100%",
     borderRadius: 2,
   },

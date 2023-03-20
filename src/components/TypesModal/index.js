@@ -1,5 +1,5 @@
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { types } from "../../DummyHeaders";
+import { types } from "../../DummyData";
 import CustomButton from "../ui/CustomButton";
 import TypesModalStyle from "./style";
 

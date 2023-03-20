@@ -1,5 +1,5 @@
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { categories } from "../../DummyHeaders";
+import { categories } from "../../DummyData";
 import CustomButton from "../ui/CustomButton";
 import CategoriesModalStyle from "./style";
 

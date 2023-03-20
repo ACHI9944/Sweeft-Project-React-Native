@@ -1,13 +1,11 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useContext, useState } from "react";
 import { Alert, SafeAreaView, Text, TextInput, View } from "react-native";
-import Colors from "../../assets/colors/colors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomButton from "../../components/ui/CustomButton";
 import GradientText from "../../components/ui/GradientText";
 import LoadingOverlay from "../../components/ui/LoadingOverlay";
-import { AuthContext } from "../../store/context";
+import { AuthContext } from "../../context/context";
 import { getToken } from "../../util/fetch";
-
 import WelcomeScreenStyle from "./style";
 
 const styles = WelcomeScreenStyle;
@@ -22,10 +20,10 @@ function WelcomeScreen() {
     try {
       const requestedData = await getToken();
       const { token } = requestedData.data;
-      const newDate = new Date().getTime();
+      const newDate = new Date().getTime().toString();
       await AsyncStorage.setItem("token", token);
       await AsyncStorage.setItem("name", name);
-      await AsyncStorage.setItem("date", newDate.toString());
+      await AsyncStorage.setItem("date", newDate);
       authCtx.setNameAndToken(token, name);
     } catch (error) {
       Alert.alert("Could not proceed, please try again later");
@@ -38,30 +36,23 @@ function WelcomeScreen() {
   }
 
   return (
-    <SafeAreaView style={styles.mainScreen}>
-      <View style={styles.screen}>
-        <GradientText
-          gradientColors={[Colors.gradient100, Colors.gradient200]}
-          textStyle={styles.quizgame}
-        >
-          Quiz Game
-        </GradientText>
-        <Text style={styles.text}>Please Enter Your Name To Start </Text>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.input}
-            placeholder="Nickname . . ."
-            onChangeText={(value) => setName(value)}
-            value={name}
-          />
-        </View>
-        <CustomButton
-          text="Submit"
-          onPress={submitHandler}
-          disabled={name.length === 0 && true}
+    <View style={styles.screen}>
+      <GradientText textStyle={styles.quizgame}>Quiz Game</GradientText>
+      <Text style={styles.text}>Please Enter Your Name To Start </Text>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.input}
+          placeholder="Name . . ."
+          onChangeText={(value) => setName(value)}
+          value={name}
         />
       </View>
-    </SafeAreaView>
+      <CustomButton
+        text="Submit"
+        onPress={submitHandler}
+        disabled={name.length === 0 && true}
+      />
+    </View>
   );
 }
 

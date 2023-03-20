@@ -1,6 +1,5 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import Colors from "../../assets/colors/colors";
-const device = Dimensions.get("window");
 
 const ChoosingScreenStyle = StyleSheet.create({
   screen: {

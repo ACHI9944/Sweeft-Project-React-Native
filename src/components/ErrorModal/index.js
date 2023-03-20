@@ -1,16 +1,29 @@
 import { useNavigation } from "@react-navigation/native";
-import { Modal, Platform, Pressable, Text, View } from "react-native";
+import { useContext } from "react";
+import { Alert, Modal, Platform, Pressable, Text, View } from "react-native";
+import { AuthContext } from "../../context/context";
+import { refreshToken } from "../../util/fetch";
 import CustomButton from "../ui/CustomButton";
 import ErrorModalStyle from "./style";
 
 const styles = ErrorModalStyle;
 
-function ErrorModal({
-  setErrorModalVisible,
-  errorModalVisible,
-  refreshHandler,
-}) {
+function ErrorModal({ setErrorModalVisible, errorModalVisible, setIsLoading }) {
+  const authCtx = useContext(AuthContext);
   const navigation = useNavigation();
+
+  async function refreshHandler() {
+    setIsLoading(true);
+    try {
+      await refreshToken(authCtx.token);
+      navigation.goBack();
+      Alert.alert("Question history refreshed");
+    } catch (error) {
+      Alert.alert("Could not proceed, please try again later");
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   function closeHandler() {
     setErrorModalVisible(!errorModalVisible);

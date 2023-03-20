@@ -1,7 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useContext } from "react";
 import { Modal, Platform, Pressable, Text, View } from "react-native";
-import { AuthContext } from "../../store/context";
+import { AuthContext } from "../../context/context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomButton from "../ui/CustomButton";
 import ConfirmModalStyle from "./style";
 

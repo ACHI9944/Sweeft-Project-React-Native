@@ -1,7 +1,7 @@
 import { Pressable, ScrollView, Text, View } from "react-native";
 import CustomButton from "../ui/CustomButton";
 import DifficultiesModalStyle from "./style";
-import { difficulties } from "../../DummyHeaders";
+import { difficulties } from "../../DummyData";
 
 const styles = DifficultiesModalStyle;
 

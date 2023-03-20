@@ -6,6 +6,7 @@ const StartingScreenStyle = StyleSheet.create({
     flex: 1,
     padding: 30,
     justifyContent: "space-between",
+    backgroundColor: "white",
   },
   readyText: {
     fontSize: 60,

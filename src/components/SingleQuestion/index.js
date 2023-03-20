@@ -1,6 +1,6 @@
-import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import SelectingOption from "../SelectingOption";
 import CustomButton from "../ui/CustomButton";
 import SingleQuestionStyle from "./style";
@@ -9,19 +9,18 @@ const styles = SingleQuestionStyle;
 
 function SingleQuestion({
   questionsAmount,
-  shuffledAnswers,
+  answers,
   recorder,
   setRecorder,
-  curQuestionData,
+  questionData,
 }) {
   const navigation = useNavigation();
   const [point, setPoint] = useState(0);
   const [selected, setSelected] = useState("");
   const [confirmed, setConfirmed] = useState(false);
-  const coorectAnswer = decodeURIComponent(curQuestionData.correct_answer);
-  const question = decodeURIComponent(curQuestionData.question);
+  const coorectAnswer = decodeURIComponent(questionData.correct_answer);
+  const question = decodeURIComponent(questionData.question);
 
-  //function for changing questions and also for navigating when its done.
   function confirmHandler() {
     setConfirmed(true);
   }
@@ -53,7 +52,7 @@ function SingleQuestion({
         <View style={styles.questionView}>
           <Text style={styles.question}>{question}</Text>
         </View>
-        {shuffledAnswers.map((answer) => {
+        {answers.map((answer) => {
           return (
             <SelectingOption
               key={answer}
