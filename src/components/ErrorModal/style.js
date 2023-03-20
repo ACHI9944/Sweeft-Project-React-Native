@@ -1,15 +1,8 @@
 import { Dimensions, StyleSheet } from "react-native";
 const device = Dimensions.get("window");
 const ErrorModalStyle = StyleSheet.create({
-  iOSBackdrop: {
-    backgroundColor: "#000000",
-    opacity: 0.4,
-  },
-  androidBackdrop: {
-    backgroundColor: "#232f34",
-    opacity: 0.42,
-  },
   backdrop: {
+    backgroundColor: "white",
     position: "absolute",
     top: 0,
     left: 0,
@@ -28,6 +21,7 @@ const ErrorModalStyle = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     justifyContent: "space-between",
+    borderWidth: 2,
   },
 
   bigText: {

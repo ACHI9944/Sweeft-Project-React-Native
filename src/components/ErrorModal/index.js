@@ -32,12 +32,7 @@ function ErrorModal({ setErrorModalVisible, errorModalVisible, setIsLoading }) {
 
   return (
     <Modal animationType="fade" transparent={true} visible={errorModalVisible}>
-      <View
-        style={[
-          Platform.OS === "ios" ? styles.iOSBackdrop : styles.androidBackdrop,
-          styles.backdrop,
-        ]}
-      />
+      <View style={[styles.backdrop]} />
 
       <View style={styles.modal}>
         <View style={styles.modalTexts}>
