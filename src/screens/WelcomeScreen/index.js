@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Alert, SafeAreaView, Text, TextInput, View } from "react-native";
+import { Alert, Text, TextInput, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomButton from "../../components/ui/CustomButton";
 import GradientText from "../../components/ui/GradientText";
