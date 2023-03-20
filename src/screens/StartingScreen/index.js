@@ -53,6 +53,7 @@ function StartingScreen({ route, navigation }) {
       } catch (error) {
         Alert.alert("Could not proceed, please try again later");
       } finally {
+        
         setIsLoading(false);
       }
     }
